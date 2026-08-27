@@ -1,0 +1,33 @@
+body {
+    height: 100vh;
+    background: linear-gradient(red,white,blue);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+img {
+    height: 500px;
+}
+
+.central{
+    background: white;
+    width: fit-content;
+    box-shadow: 2px 2px 2px black;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+button {
+    font-size: 25px;
+    width: 145px;
+    /* background: linear-gradient(red,white,blue); */
+    background: red;
+    /* color: navy; */
+    color: darkgray;
+    cursor: pointer;
+    box-shadow: 2px 2px 2px black;
+    border-radius: 10px;
+    
+
+}
