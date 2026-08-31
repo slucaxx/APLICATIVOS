@@ -1,0 +1,37 @@
+body {
+    height: 100vh;
+    /* background: linear-gradient(darkgray,black,darkgray); */
+    background:  linear-gradient(black,darkgray,white,darkgray,black);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+}
+
+img {
+    height: 500px;
+}
+
+.central {
+   width: fit-content;
+   box-shadow: 20px 20px 200px white;
+   border-radius: 20px;
+   padding: 10px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+   background: rgba(56, 56, 56, 0.803);
+}
+
+.central button {
+    font-size: 20px;
+    width: 120px;
+    cursor: pointer;
+    box-shadow: 2px 2px 2px black;
+    border-radius: 10px;
+    color: darkred;
+    background: white;
+    gap: 15px;
+
+}
