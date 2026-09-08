@@ -1,0 +1,44 @@
+@font-face {
+    font-family: relogio;
+    src: url(/digital/DS-DIGI.TTF);
+}
+
+
+body {
+    height: 100vh;
+    background: url(/imagens/coriga-1.jpg);
+    background-size: cover;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}
+
+.central{
+    background: rgba(255, 255, 255, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center ;
+    padding: 20px;
+    width: fit-content;
+    backdrop-filter: blur(0px);
+}
+
+.central div{
+    background: linear-gradient(black,darkgray,black);
+    color: black;
+    padding: 20px;
+    border-radius: 50%;
+    font-size: 130px;
+    font-family: relogio;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px ;
+    height: 100px;
+
+}
+
+.central span{
+    font-size: 130px;
+    color: white;
+}
