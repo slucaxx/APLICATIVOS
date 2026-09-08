@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Presente Secreto da Lais 💝</title>
+<!-- Tailwind CSS for modern structure -->
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@0,600;0,800;1,400&family=Quicksand:wght@400;600;700&display=swap');
+
+  :root {
+    --rose: #e8437a;
+    --rose-light: #f472a0;
+    --rose-dark: #b82654;
+    --gold: #d4af37;
+    --gold-light: #f3e5ab;
+    --deep: #1e0b19;
+  }
+
+  body {
+    font-family: 'Quicksand', sans-serif;
+    background: radial-gradient(circle at center, #2d1225 0%, #12050f 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .font-romantic {
+    font-family: 'Playfair Display', serif;
+  }
+
+  .font-handwritten {
+    font-family: 'Dancing Script', cursive;
+  }
+
+  /* Floating particles */
+  .heart-particle {
+    position: absolute;
+    pointer-events: none;
+    animation: floatUp linear infinite;
+    opacity: 0;
+    filter: drop-shadow(0 2px 5px rgba(232, 67, 122, 0.3));
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(105vh) scale(0.3) rotate(0deg); opacity: 0; }
+    15% { opacity: 0.7; }
+    90% { opacity: 0.3; }
+    100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
+  }
+
+  /* Smooth card entrance */
+  .custom-card {
+    background: rgba(255, 248, 252, 0.95);
+    backdrop-filter: blur(10px);
+    border: 3px solid var(--rose-light);
+    box-shadow: 0 20px 50px rgba(232, 67, 122, 0.25), inset 0 0 15px rgba(232, 67, 122, 0.1);
+    transform-style: preserve-3d;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  /* Floating animation */
+  .bounce-gentle {
+    animation: bounceGentle 3s ease-in-out infinite;
+  }
+  @keyframes bounceGentle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  /* Interactive Gift Box */
+  .gift-container {
+    perspective: 1000px;
+    width: 200px;
+    height: 200px;
+    margin: 2rem auto;
+    cursor: pointer;
+  }
+
+  .gift-box-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.8s ease;
+    animation: wobble 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes wobble {
+    0% { transform: rotateY(-10deg) rotateX(10deg); }
+    100% { transform: rotateY(10deg) rotateX(15deg); }
+  }
+
+  .gift-side {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--rose) 0%, var(--rose-dark) 100%);
+    border: 2px solid var(--rose-light);
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+  }
+
+  /* Gift Box Ribbon */
+  .gift-side::before, .gift-side::after {
+    content: '';
+    position: absolute;
+    background: linear-gradient(to right, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+  }
+
+  .gift-side::before {
+    left: 42%;
+    width: 16%;
+    height: 100%;
+  }
+
+  .gift-side::after {
+    top: 42%;
+    height: 16%;
+    width: 100%;
+  }
+
+  /* Beautiful glowing inputs */
+  .love-input {
+    border: 2px solid #f0c0d8;
+    transition: all 0.3s ease;
+  }
+  .love-input:focus {
+    border-color: var(--rose);
+    box-shadow: 0 0 10px rgba(232, 67, 122, 0.3);
+    transform: translateY(-1px);
+  }
+
+  /* Audio player button pulse */
+  .pulse-gold {
+    animation: pulseGold 2s infinite;
+  }
+  @keyframes pulseGold {
+    0% { box-shadow: 0 0 0 0 rgba(211, 175, 55, 0.5); }
+    70% { box-shadow: 0 0 0 12px rgba(211, 175, 55, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(211, 175, 55, 0); }
+  }
+
+  /* Custom switch animations */
+  .section-transition {
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  /* Polaroid Photo Frame */
+  .polaroid-frame {
+    background: white;
+    padding: 12px 12px 24px 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    border-radius: 4px;
+    transform: rotate(-2deg);
+    transition: transform 0.3s ease;
+  }
+  .polaroid-frame:hover {
+    transform: rotate(1deg) scale(1.03);
+  }
+</style>
+</head>
+<body class="flex items-center justify-center p-4">
+
+<!-- Floating hearts background -->
+<div class="fixed inset-0 pointer-events-none z-0 overflow-hidden" id="heartsContainer"></div>
+
+<!-- Ambient Music Control (Web Audio - Oceano por Djavan) -->
+<button onclick="toggleMusic()" id="musicBtn" class="fixed top-4 right-4 z-50 bg-purple-950/80 border border-pink-400/40 text-pink-200 px-4 py-2 rounded-full text-xs font-bold tracking-wider flex items-center gap-2 shadow-lg backdrop-blur-sm hover:scale-105 active:scale-95 transition">
+  <span id="musicIcon">🎵</span> <span id="musicText">OUVIR "OCEANO" (DJAVAN)</span>
+</button>
+
+<!-- Main Wrapper -->
+<div class="w-full max-w-lg z-10 my-8">
+
+  <!-- CARD -->
+  <div class="custom-card rounded-3xl p-6 sm:p-10 text-center relative overflow-hidden">
+    
+    <!-- Top Decorative Ribbon -->
+    <div class="absolute -right-12 -top-12 w-28 h-28 bg-rose-500 text-white flex items-end justify-center transform rotate-45 pb-2 shadow-md">
+      <span class="text-[9px] font-bold tracking-widest">AMOR ❤️</span>
+    </div>
+
+    <!-- SECTION 1: Confirmação de entrada -->
+    <div class="section-transition" id="s1">
+      <div class="inline-block px-4 py-1 rounded-full bg-slate-900 text-amber-400 text-xs font-bold tracking-widest mb-4">
+        🔒 SISTEMA DE SEGURANÇA MÁXIMA
+      </div>
+      <div class="text-6xl my-4 bounce-gentle inline-block">🎁</div>
+      <h1 class="font-romantic text-2xl sm:text-3xl font-extrabold text-slate-800 leading-tight mb-4">
+        VOCÊ ESTÁ PRESTES A ABRIR UM <span class="text-rose-500">PRESENTE ULTRA SECRETO</span>.
+      </h1>
+      <p class="text-slate-600 text-sm sm:text-base mb-6">
+        Este arquivo contém altos níveis de fofura e declarações sentimentais. Tem certeza de que ele é destinado a você e que deseja prosseguir?
+      </p>
+      
+      <div class="flex flex-col sm:flex-row gap-3 justify-center items-center mt-6 relative min-h-[120px]">
+        <button class="bg-gradient-to-r from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 text-white font-bold py-3 px-8 rounded-full shadow-lg shadow-pink-500/20 transform hover:scale-105 active:scale-95 transition w-full sm:w-auto z-10" onclick="goTo('s2')">
+          ✅ SIM, CLARO!
+        </button>
+        <!-- The 'No' button is absolute positioned inside container to avoid shifting other elements when teleports -->
+        <button id="btnNo1" class="border-2 border-rose-400 text-rose-500 font-bold py-3 px-8 rounded-full bg-white hover:bg-rose-50 w-full sm:w-auto sm:absolute transition-none" style="transition: none !important;" onmouseover="escapeBtn('btnNo1')" ontouchstart="escapeBtn('btnNo1', event)">
+          ❌ NÃO
+        </button>
+      </div>
+    </div>
+
+    <!-- SECTION 2: Nome -->
+    <div class="section-transition hidden" id="s2">
+      <div class="inline-block px-4 py-1 rounded-full bg-pink-100 text-rose-600 text-xs font-bold tracking-widest mb-4">
+        🌸 RECONHECIMENTO NOMINAL
+      </div>
+      <div class="text-6xl my-4 bounce-gentle inline-block">🕵️‍♀️</div>
+      <h1 class="font-romantic text-2xl sm:text-3xl font-extrabold text-slate-800 leading-tight mb-2">
+        SEU NOME POR ACASO É...
+      </h1>
+      <div class="bg-rose-50 p-4 rounded-2xl border-2 border-dashed border-rose-300 my-4">
+        <span class="font-romantic text-xl sm:text-2xl font-bold text-rose-600 block">LAIS KELLI DE SOUZA SANTOS</span>
+      </div>
+      <p class="text-slate-500 text-sm mb-6">
+        Caso afirmativo, por favor clique abaixo para iniciar o protocolo de verificação biográfica.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-3 justify-center items-center mt-6 relative min-h-[120px]">
+        <button class="bg-gradient-to-r from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 text-white font-bold py-3 px-8 rounded-full shadow-lg shadow-pink-500/20 transform hover:scale-105 active:scale-95 transition w-full sm:w-auto z-10" onclick="goTo('s3')">
+          ✅ SOU EU MESMA!
+        </button>
+        <button id="btnNo2" class="border-2 border-rose-400 text-rose-500 font-bold py-3 px-8 rounded-full bg-white hover:bg-rose-50 w-full sm:w-auto sm:absolute transition-none" style="transition: none !important;" onmouseover="escapeBtn('btnNo2')" ontouchstart="escapeBtn('btnNo2', event)">
+          ❌ NÃO SOU
+        </button>
+      </div>
+    </div>
+
+    <!-- SECTION 3: Formulário 1 -->
+    <div class="section-transition hidden" id="s3">
+      <div class="inline-block px-4 py-1 rounded-full bg-indigo-900 text-indigo-100 text-[10px] font-bold tracking-widest mb-2">
+        📋 QUESTIONÁRIO DE SEGURANÇA (PÁG 1/27)
+      </div>
+      <h2 class="font-romantic text-lg font-bold text-slate-700 mb-6">
+        Por favor, responda o formulário oficial abaixo para atestar sua identidade:
+      </h2>
+
+      <div class="text-left space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Seu primeiro nome:</label>
+          <input type="text" id="f_nome1" placeholder="Ex: Lais..." class="love-input w-full p-3 rounded-xl outline-none text-slate-800 font-semibold" oninput="clearErr('f_nome1')">
+          <div class="text-red-600 text-xs font-bold mt-1 hidden" id="err_nome1"></div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Seu sobrenome completo:</label>
+          <input type="text" id="f_nome2" placeholder="Restante do nome..." class="love-input w-full p-3 rounded-xl outline-none text-slate-800 font-semibold" oninput="clearErr('f_nome2')">
+          <div class="text-red-600 text-xs font-bold mt-1 hidden" id="err_nome2"></div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Sua Idade:</label>
+            <input type="number" id="f_idade" placeholder="Ex: 16" class="love-input w-full p-3 rounded-xl outline-none text-slate-800 font-semibold" oninput="clearErr('f_idade')">
+            <div class="text-red-600 text-xs font-bold mt-1 hidden" id="err_idade"></div>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Sua beleza:</label>
+            <input type="number" id="f_beleza" placeholder="Sua nota" class="love-input w-full p-3 rounded-xl outline-none text-slate-800 font-semibold" oninput="clearErr('f_beleza')">
+            <div class="text-red-600 text-xs font-bold mt-1 hidden" id="err_beleza"></div>
+          </div>
+        </div>
+      </div>
+
+      <button class="bg-gradient-to-r from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 text-white font-bold py-3.5 px-8 rounded-full w-full mt-6 shadow-lg shadow-pink-500/20 transform active:scale-95 transition" onclick="validateForm1()">
+        Avançar para Próxima Página →
+      </button>
+    </div>
+
+    <!-- SECTION 4: Brincadeira + Formulário 2 -->
+    <div class="section-transition hidden" id="s4">
+      <div class="inline-block px-4 py-1 rounded-full bg-amber-100 text-amber-700 text-xs font-bold tracking-widest mb-4">
+        😜 BRINCADEIRINHA!
+      </div>
+      <div class="text-5xl my-2">🎉</div>
+      <h1 class="font-romantic text-2xl font-black text-rose-500 mb-2 leading-tight">
+        SÓ TINHAM 2 PÁGINAS!
+      </h1>
+      <p class="text-slate-600 text-sm mb-6">
+        Mas calma, para liberar o presente precisamos do último teste de segurança cibernética-amorosa:
+      </p>
+
+      <div class="text-left space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">💑 Nome completo do seu namorado:</label>
+          <input type="text" id="f_namorado" placeholder="Quem é o sortudo?" class="love-input w-full p-3 rounded-xl outline-none text-slate-800 font-semibold" oninput="clearErr('f_namorado')">
+          <div class="text-red-600 text-xs font-bold mt-1 hidden" id="err_namorado"></div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">🎂 Qual é a idade dele?</label>
+          <input type="number" id="f_idade_nam" placeholder="Idade dele" class="love-input w-full p-3 rounded-xl outline-none text-slate-800 font-semibold" oninput="clearErr('f_idade_nam')">
+          <div class="text-red-600 text-xs font-bold mt-1 hidden" id="err_idade_nam"></div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">🎁 Você quer mesmo abrir esse presente?</label>
+          <input type="text" id="f_quer" placeholder="Digite 'sim' ou 'com certeza'" class="love-input w-full p-3 rounded-xl outline-none text-slate-800 font-semibold" oninput="clearErr('f_quer')">
+          <div class="text-red-600 text-xs font-bold mt-1 hidden" id="err_quer"></div>
+        </div>
+      </div>
+
+      <button class="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold py-3.5 px-8 rounded-full w-full mt-6 shadow-lg shadow-emerald-500/20 transform active:scale-95 transition" onclick="validateForm2()">
+        VERIFICAR E DESBLOQUEAR! 🔓
+      </button>
+    </div>
+
+    <!-- SECTION 5: Caixa de Presente Fechada -->
+    <div class="section-transition hidden" id="s5">
+      <div class="inline-block px-4 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold tracking-widest mb-4">
+        🎉 ACESSO AUTORIZADO!
+      </div>
+      <h1 class="font-romantic text-2xl font-extrabold text-slate-800 mb-2">
+        SUA CAIXA DE PRESENTE ESTÁ AQUI!
+      </h1>
+      <p class="text-slate-500 text-xs sm:text-sm mb-4">
+        Dê um toque na caixa de presente abaixo para abrir seu presente oficial! ✨
+      </p>
+
+      <!-- Interactive Box -->
+      <div class="gift-container" onclick="openGift()">
+        <div class="gift-box-wrapper" id="giftBoxWrapper">
+          <!-- FRONT -->
+          <div class="gift-side" style="transform: translateZ(100px);"></div>
+          <!-- BACK -->
+          <div class="gift-side" style="transform: rotateY(180deg) translateZ(100px);"></div>
+          <!-- LEFT -->
+          <div class="gift-side" style="transform: rotateY(-90deg) translateZ(100px);"></div>
+          <!-- RIGHT -->
+          <div class="gift-side" style="transform: rotateY(90deg) translateZ(100px);"></div>
+          <!-- TOP (BOW) -->
+          <div class="gift-side" style="transform: rotateX(90deg) translateZ(100px); background: radial-gradient(circle, var(--gold) 20%, var(--rose) 21%, var(--rose-dark) 100%);">
+            <!-- Simplified CSS bow inside -->
+            <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div class="w-12 h-12 bg-amber-400 rounded-full border border-amber-200 animate-pulse"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-rose-500 font-bold text-sm tracking-widest animate-pulse">
+        CLIQUE PARA ABRIR A SURPRESA
+      </p>
+    </div>
+
+    <!-- SECTION 6: Presente Revelado -->
+    <div class="section-transition hidden" id="s6">
+      <div class="inline-block px-4 py-1 rounded-full bg-rose-600 text-white text-xs font-bold tracking-widest mb-4">
+        💖 PARA: LAIS KELLI
+      </div>
+      
+      <!-- Interactive Polaroid Frame -->
+      <div class="my-6 flex justify-center">
+        <div class="polaroid-frame border border-rose-100">
+          <div class="w-48 h-48 bg-rose-50 flex items-center justify-center rounded overflow-hidden relative">
+            <!-- Image tag displaying the configured photo of Lais -->
+            <img id="laisPhoto" src="ASSETS/lais.jpg" alt="Foto da Lais" class="w-full h-full object-cover">
+          </div>
+          
+          <!-- Elegant uploader utility inside the polaroid frame -->
+          <div class="mt-3">
+            <label for="photoUpload" class="cursor-pointer inline-flex items-center gap-1.5 bg-rose-100 hover:bg-rose-200 text-rose-700 text-xs font-bold px-3 py-1.5 rounded-full transition">
+              📸 <span>Alterar Foto Dela</span>
+            </label>
+            <input type="file" id="photoUpload" class="hidden" accept="image/*" onchange="loadUserPhoto(event)">
+          </div>
+        </div>
+      </div>
+      
+      <h1 class="font-romantic text-3xl font-black text-rose-600 mb-2 leading-tight">
+        Te amo muito, Lais!
+      </h1>
+      
+      <!-- Dedicated Special Message requested by the user -->
+      <p class="font-handwritten text-2xl text-slate-700 leading-relaxed my-6 bg-rose-50/50 p-5 rounded-2xl border border-rose-100 italic">
+        "Eu nem imaginava o quão importante você se tornaria pra mim, e em pouco tempo percebi que você é simplesmente maravilhosa e é exatamente a pessoa que eu esperava conhecer, obrigado por ser você!!!"
+      </p>
+
+      <hr class="border-t-2 border-dashed border-rose-200 my-6">
+
+      <!-- Cupons de Amor Interativos -->
+      <h3 class="text-slate-800 font-bold text-sm uppercase tracking-wider mb-3 text-left">
+        🎟️ Seus Cupons de Amor Resgatáveis:
+      </h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
+        <div class="bg-gradient-to-br from-amber-50 to-amber-100 border border-amber-300 p-3 rounded-xl relative overflow-hidden shadow-sm cursor-pointer transform hover:scale-[1.02] transition" onclick="useCoupon(this, 'Cafuné Infinito 💆‍♀️')">
+          <div class="text-xs font-bold text-amber-800">CUPOM #01</div>
+          <div class="font-bold text-slate-800 text-sm">Vale 1 Cafuné Infinito</div>
+          <div class="text-[10px] text-amber-600 mt-1">Disponibilidade: Ilimitada</div>
+          <div class="absolute right-2 bottom-1 text-2xl opacity-30">💆‍♀️</div>
+        </div>
+
+        <div class="bg-gradient-to-br from-pink-50 to-pink-100 border border-pink-300 p-3 rounded-xl relative overflow-hidden shadow-sm cursor-pointer transform hover:scale-[1.02] transition" onclick="useCoupon(this, 'Jantar Especial 🍔')">
+          <div class="text-xs font-bold text-pink-800">CUPOM #02</div>
+          <div class="font-bold text-slate-800 text-sm">Vale Jantar / Lanche Especial</div>
+          <div class="text-[10px] text-pink-600 mt-1">Disponibilidade: Sob demanda</div>
+          <div class="absolute right-2 bottom-1 text-2xl opacity-30">🍔</div>
+        </div>
+
+        <div class="bg-gradient-to-br from-purple-50 to-purple-100 border border-purple-300 p-3 rounded-xl relative overflow-hidden shadow-sm cursor-pointer transform hover:scale-[1.02] transition" onclick="useCoupon(this, 'Abraço Apertado 🤗')">
+          <div class="text-xs font-bold text-purple-800">CUPOM #03</div>
+          <div class="font-bold text-slate-800 text-sm">Vale 1 Abraço de 10 minutos</div>
+          <div class="text-[10px] text-purple-600 mt-1">Disponibilidade: Ilimitada</div>
+          <div class="absolute right-2 bottom-1 text-2xl opacity-30">🤗</div>
+        </div>
+
+        <div class="bg-gradient-to-br from-rose-50 to-rose-100 border border-rose-300 p-3 rounded-xl relative overflow-hidden shadow-sm cursor-pointer transform hover:scale-[1.02] transition" onclick="useCoupon(this, 'Cineminha em Casa 🍿')">
+          <div class="text-xs font-bold text-rose-800">CUPOM #04</div>
+          <div class="font-bold text-slate-800 text-sm">Vale Escolher o Filme (sem reclamar)</div>
+          <div class="text-[10px] text-rose-600 mt-1">Disponibilidade: 1x por semana</div>
+          <div class="absolute right-2 bottom-1 text-2xl opacity-30">🍿</div>
+        </div>
+      </div>
+
+      <!-- Footer Love Stamp -->
+      <div class="mt-8 text-xs font-bold text-slate-400 tracking-wider">
+        Assinado com todo amor do mundo por seu namorado, Lucas ❤️
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal for Coupon Redemptions (Using inline HTML, never alert!) -->
+<div id="couponModal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+  <div class="bg-white rounded-2xl p-6 max-w-sm w-full text-center shadow-2xl border-4 border-rose-400 transform scale-90 transition-transform duration-300" id="couponModalCard">
+    <div class="text-5xl mb-3">🎟️✨</div>
+    <h3 class="text-xl font-bold text-slate-800 mb-2">Cupom Resgatado!</h3>
+    <p class="text-slate-600 text-sm mb-4" id="couponModalText"></p>
+    <p class="text-xs text-rose-500 font-bold italic mb-6">Tire um print desta tela e envie para o Lucas para cobrar o seu prêmio! 😉</p>
+    <button onclick="closeCouponModal()" class="w-full bg-gradient-to-r from-pink-500 to-rose-600 text-white font-bold py-2.5 rounded-full shadow-md">
+      Confirmar Resgate
+    </button>
+  </div>
+</div>
+
+<div class="fixed inset-0 pointer-events-none z-50" id="confettiRain"></div>
+
+<script>
+  //  // ── SOUND & SYNTHESIZER (OCEANO - DJAVAN) ──────────────
+  let audioCtx = null;
+  let synthInterval = null;
+  let isPlaying = false;
+  let noteIndex = 0;
+
+  // Custom programmed notes representing the beautiful main melody of "Oceano"
+  // Notes sequence: "Amar é um deserto e seus temores..."
+  const djavanOceanoMelody = [
+    // "Amar é..."
+    { freq: 493.88, duration: 0.35 }, // B4
+    { freq: 440.00, duration: 0.25 }, // A4
+    { freq: 392.00, duration: 0.40 }, // G4
+    { freq: 369.99, duration: 0.25 }, // F#4
+    
+    // "...um deserto e..."
+    { freq: 392.00, duration: 0.30 }, // G4
+    { freq: 440.00, duration: 0.30 }, // A4
+    { freq: 493.88, duration: 0.50 }, // B4
+    { freq: 0.0,    duration: 0.15 }, // Pausa
+    
+    // "...seus temores..."
+    { freq: 493.88, duration: 0.35 }, // B4
+    { freq: 440.00, duration: 0.25 }, // A4
+    { freq: 392.00, duration: 0.40 }, // G4
+    { freq: 329.63, duration: 0.60 }, // E4
+    { freq: 0.0,    duration: 0.25 }, // Pausa
+    
+    // "Assim que o dia amanheceu..."
+    { freq: 329.63, duration: 0.30 }, // E4
+    { freq: 392.00, duration: 0.30 }, // G4
+    { freq: 493.88, duration: 0.45 }, // B4
+    { freq: 440.00, duration: 0.40 }, // A4
+    { freq: 392.00, duration: 0.30 }, // G4
+    { freq: 369.99, duration: 0.50 }, // F#4
+    { freq: 0.0,    duration: 0.30 }  // Pausa
+  ];
+
+  function toggleMusic() {
+    if (isPlaying) {
+      stopSynthesizer();
+    } else {
+      startSynthesizer();
+    }
+  }
+
+  function startSynthesizer() {
+    try {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+
+      isPlaying = true;
+      document.getElementById('musicText').textContent = "DESATIVAR TRILHA ROMÂNTICA";
+      document.getElementById('musicBtn').classList.add('pulse-gold');
+
+      // Recursively play Djavan melody step-by-step
+      noteIndex = 0;
+      scheduleNextNote();
+    } catch(e) {
+      console.log('Web Audio not supported on this context.');
+    }
+  }
+
+  function scheduleNextNote() {
+    if (!isPlaying) return;
+
+    const currentNote = djavanOceanoMelody[noteIndex % djavanOceanoMelody.length];
+    
+    if (currentNote.freq > 0) {
+      let osc = audioCtx.createOscillator();
+      let gainNode = audioCtx.createGain();
+
+      osc.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+
+      // Smooth custom warm triangle wave to emulate classical acoustic nylon guitar/synth hybrid
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(currentNote.freq, audioCtx.currentTime);
+
+      // Custom acoustic envelope (fast attack, gentle fade out decay)
+      gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+      gainNode.gain.linearRampToValueAtTime(0.14, audioCtx.currentTime + 0.04);
+      gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + currentNote.duration - 0.02);
+
+      osc.start(audioCtx.currentTime);
+      osc.stop(audioCtx.currentTime + currentNote.duration);
+    }
+
+    noteIndex++;
+    
+    // Schedule the absolute exact time to fire the next note smoothly
+    synthInterval = setTimeout(scheduleNextNote, currentNote.duration * 1000);
+  }
+
+  function stopSynthesizer() {
+    isPlaying = false;
+    if (synthInterval) clearTimeout(synthInterval);
+    document.getElementById('musicText').textContent = 'OUVIR "OCEANO" (DJAVAN)';
+    document.getElementById('musicBtn').classList.remove('pulse-gold');
+  }
+
+  // ── HEARTS & STARS FLOATING BACKGROUND ─────────────────
+  const container = document.getElementById('heartsContainer');
+  const symbols = ['💗', '💖', '✨', '🌸', '💕', '⭐', '🎈'];
+  
+  function createBackgroundParticles() {
+    for (let i = 0; i < 28; i++) {
+      const el = document.createElement('span');
+      el.className = 'heart-particle';
+      el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      el.style.left = Math.random() * 100 + 'vw';
+      el.style.animationDuration = (8 + Math.random() * 12) + 's';
+      el.style.animationDelay = (Math.random() * 10) + 's';
+      el.style.fontSize = (0.7 + Math.random() * 1.5) + 'rem';
+      container.appendChild(el);
+    }
+  }
+  createBackgroundParticles();
+
+  //  // ── NO BUTTON ESCAPING BEHAVIOR (INSTANT - INFINITE) ──
+  function escapeBtn(id, event) {
+    if (event) {
+      event.preventDefault(); // Prevent touch delay behaviors
+    }
+    const btn = document.getElementById(id);
+    
+    // Explicitly guarantee no slow animations are applied during teleport
+    btn.style.setProperty('transition', 'none', 'important');
+
+    const padding = 20;
+    const btnWidth = btn.offsetWidth || 120;
+    const btnHeight = btn.offsetHeight || 50;
+
+    const maxW = window.innerWidth - btnWidth - padding;
+    const maxH = window.innerHeight - btnHeight - padding;
+    
+    const x = Math.max(padding, Math.random() * maxW);
+    const y = Math.max(padding, Math.random() * maxH);
+    
+    btn.style.position = 'fixed';
+    btn.style.left = x + 'px';
+    btn.style.top = y + 'px';
+    btn.style.zIndex = '9999';
+  }
+
+  // ── ACCENT ROBUST STRING HELPER ────────────────────────
+  function cleanString(str) {
+    return str
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "") // removes accents/diacritics
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, ' '); // normalizes multiple spaces
+  }
+
+  // ── NAVIGATOR ──────────────────────────────────────────
+  function goTo(id) {
+    const sections = ['s1', 's2', 's3', 's4', 's5', 's6'];
+    sections.forEach(secId => {
+      const el = document.getElementById(secId);
+      if (secId === id) {
+        el.classList.remove('hidden');
+        el.style.opacity = 0;
+        el.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          el.style.opacity = 1;
+          el.style.transform = 'scale(1)';
+        }, 50);
+      } else {
+        el.classList.add('hidden');
+      }
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ── ERROR RENDERING HELPERS ───────────────────────────
+  function showCustomError(inputId, errId, msg) {
+    const input = document.getElementById(inputId);
+    const err = document.getElementById(errId);
+    
+    input.classList.add('border-red-500', 'bg-red-50');
+    input.classList.remove('border-rose-200');
+    err.textContent = msg;
+    err.classList.remove('hidden');
+    
+    input.parentElement.classList.add('animate-bounce');
+    setTimeout(() => {
+      input.parentElement.classList.remove('animate-bounce');
+    }, 400);
+  }
+
+  // ── FILE READER FOR INSTANT LOCAL PHOTO PREVIEW ────────
+  function loadUserPhoto(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById('laisPhoto').src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  function clearErr(inputId) {
+    const input = document.getElementById(inputId);
+    const errId = inputId.replace('f_', 'err_');
+    const err = document.getElementById(errId);
+    
+    input.classList.remove('border-red-500', 'bg-red-50');
+    input.classList.add('border-rose-200');
+    if (err) err.classList.add('hidden');
+  }
+
+  // ── FORM 1 VALIDATION ─────────────────────────────────
+  function validateForm1() {
+    let isValid = true;
+
+    // Validate First Name: "Lais Kelli"
+    const nome1 = document.getElementById('f_nome1').value;
+    if (cleanString(nome1) !== 'lais kelli' && cleanString(nome1) !== 'lais') {
+      showCustomError('f_nome1', 'err_nome1', '❌ Hum... Esse não parece ser o primeiro nome dela!');
+      isValid = false;
+    }
+
+    // Validate Last Name: "de souza santos"
+    const nome2 = document.getElementById('f_nome2').value;
+    if (cleanString(nome2) !== 'de souza santos' && cleanString(nome2) !== 'souza santos') {
+      showCustomError('f_nome2', 'err_nome2', '❌ Sobrenome incorreto! Tente novamente.');
+      isValid = false;
+    }
+
+    // Validate Age: 16
+    const idade = document.getElementById('f_idade').value.trim();
+    if (idade !== '16') {
+      showCustomError('f_idade', 'err_idade', '❌ Essa não é a idade correta!');
+      isValid = false;
+    }
+
+    // Validate Beauty Level: Must be at least 10, without revealing the number in error!
+    const beleza = document.getElementById('f_beleza').value.trim();
+    if (!beleza || parseInt(beleza) < 10) {
+      showCustomError('f_beleza', 'err_beleza', '❌ Sua beleza é infinitamente maior do que isso! Tente um valor muito mais alto 😍');
+      isValid = false;
+    }
+
+    if (isValid) {
+      goTo('s4');
+    }
+  }
+
+  // ── FORM 2 VALIDATION ─────────────────────────────────
+  function validateForm2() {
+    let isValid = true;
+
+    // Validate Boyfriend Name: "lucas de souza santos sa" or "lucas" or "lucas sa"
+    const nam = document.getElementById('f_namorado').value;
+    const cleanNam = cleanString(nam);
+    const acceptedNames = [
+      'lucas de souza santos sa',
+      'lucas de souza santos',
+      'lucas sa',
+      'lucas'
+    ];
+    if (!acceptedNames.includes(cleanNam)) {
+      showCustomError('f_namorado', 'err_namorado', '❌ Esse não é o namorado dela! Quem é esse? 🤔');
+      isValid = false;
+    }
+
+    // Validate Boyfriend Age: 16
+    const idadeNam = document.getElementById('f_idade_nam').value.trim();
+    if (idadeNam !== '16') {
+      showCustomError('f_idade_nam', 'err_idade_nam', '❌ Errou a idade dele por pouco!');
+      isValid = false;
+    }
+
+    // Validate desire: "sim"
+    const quer = document.getElementById('f_quer').value;
+    const cleanQuer = cleanString(quer);
+    if (cleanQuer !== 'sim' && cleanQuer !== 'com certeza' && cleanQuer !== 'obvio' && cleanQuer !== 'quero') {
+      showCustomError('f_quer', 'err_quer', '❌ Você precisa querer de verdade! Digite "sim".');
+      isValid = false;
+    }
+
+    if (isValid) {
+      goTo('s5');
+    }
+  }
+
+  // ── OPEN GIFT ACTION ─────────────────────────────────
+  function openGift() {
+    // Start music automatically on unwrapping if not active
+    if (!isPlaying) {
+      startSynthesizer();
+    }
+
+    const wrapper = document.getElementById('giftBoxWrapper');
+    wrapper.style.transform = 'scale(0) rotateY(720deg)';
+    wrapper.style.transition = 'transform 1.2s cubic-bezier(0.6, -0.28, 0.735, 0.045)';
+
+    setTimeout(() => {
+      goTo('s6');
+      launchSweetConfetti();
+    }, 1100);
+  }
+
+  // ── CONFETTI CELEBRATION ──────────────────────────────
+  function launchSweetConfetti() {
+    const rain = document.getElementById('confettiRain');
+    const colors = ['💖', '🌸', '✨', '🎉', '💕', '⭐', '🎈', '❤️', '💋', '🍫'];
+    
+    for (let i = 0; i < 80; i++) {
+      const el = document.createElement('span');
+      el.textContent = colors[Math.floor(Math.random() * colors.length)];
+      el.style.cssText = `
+        position: absolute;
+        left: ${Math.random() * 100}vw;
+        top: -40px;
+        font-size: ${1 + Math.random() * 1.8}rem;
+        animation: fallDownAnimation ${1.8 + Math.random() * 2.2}s linear ${Math.random() * 1}s forwards;
+        z-index: 99;
+      `;
+      rain.appendChild(el);
+    }
+
+    const style = document.createElement('style');
+    style.textContent = `@keyframes fallDownAnimation { to { transform: translateY(110vh) rotate(540deg); opacity: 0; } }`;
+    document.head.appendChild(style);
+  }
+
+  // ── LOVE COUPONS REDEMPTION ─────────────────────────
+  function useCoupon(element, name) {
+    if (element.classList.contains('opacity-50')) return; // Already claimed
+
+    const modal = document.getElementById('couponModal');
+    const modalCard = document.getElementById('couponModalCard');
+    const modalText = document.getElementById('couponModalText');
+
+    modalText.innerHTML = `Você acaba de ativar o cupom:<br><strong class="text-rose-600 text-lg">${name}</strong>`;
+    
+    // Show Modal
+    modal.classList.remove('opacity-0', 'pointer-events-none');
+    modalCard.classList.remove('scale-90');
+    modalCard.classList.add('scale-100');
+
+    playChime();
+
+    // Mark element as claimed
+    element.classList.add('opacity-50', 'pointer-events-none');
+    const badge = element.querySelector('.text-xs');
+    if (badge) {
+      badge.textContent = "✓ RESGATADO!";
+      badge.classList.remove('text-amber-800', 'text-pink-800', 'text-purple-800', 'text-rose-800');
+      badge.classList.add('text-slate-500');
+    }
+  }
+
+  function closeCouponModal() {
+    const modal = document.getElementById('couponModal');
+    const modalCard = document.getElementById('couponModalCard');
+    
+    modal.classList.add('opacity-0', 'pointer-events-none');
+    modalCard.classList.remove('scale-100');
+    modalCard.classList.add('scale-90');
+  }
+
+  function playChime() {
+    try {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      let osc = audioCtx.createOscillator();
+      let gainNode = audioCtx.createGain();
+      
+      osc.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+      
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+      osc.frequency.exponentialRampToValueAtTime(1046.50, audioCtx.currentTime + 0.15); // C6
+      
+      gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+      gainNode.gain.linearRampToValueAtTime(0.08, audioCtx.currentTime + 0.05);
+      gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
+      
+      osc.start(audioCtx.currentTime);
+      osc.stop(audioCtx.currentTime + 0.4);
+    } catch(e) {}
+  }
+</script>
+</body>
+</html>
