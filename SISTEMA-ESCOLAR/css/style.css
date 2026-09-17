@@ -1,0 +1,94 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    height: 100vh;
+    background: url("/imagens/imagem.jpg!bw800") ;
+    background-size: cover;
+    background-repeat: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.central {
+    background: rgba(255, 255, 255, 0.25);
+    min-width: 300px;
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 30px 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4);
+}
+
+.central h1 {
+    color: #0b2545;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+.notinhas {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 15px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.central input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #134074;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.central input:focus {
+    border-color: #0077b6;
+    box-shadow: 0 0 5px rgba(0, 119, 182, 0.5);
+}
+
+.central button {
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: #134074;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.central button:hover {
+    background: white;
+    color: #134074;
+    transform: scale(1.02);
+}
+
+.central span {
+    font-size: 18px;
+    color: #ffffff;
+    font-weight: bold;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    text-align: center;
+}
